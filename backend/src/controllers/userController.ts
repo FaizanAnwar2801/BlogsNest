@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
 import { sign } from "hono/jwt";
@@ -18,19 +18,21 @@ export async function signup(c: Context) {
 
     const body = await c.req.json();
     try{
-        const user = prisma.user.create({
-            data:{
+        const user = await prisma.user.create({
+            data: {
                 email: body.email,
                 password: body.password,
-                username: body.name
+                name: body.name
             }
         });
-        const jwt = await sign({id: user.id},c.env.JWT_SECRET);
-        return c.json({jwt});
+        const jwt = await sign({
+            id: user.id
+        },c.env.JWT_SECRET)
     }
     catch(e){
+        console.log(e)
         c.status(StatusCode.NOTPERMISSION)
-        return c.json({error:"eroor while signing up"});
+        return c.json({error:"error while signing up"});
     }
 }
 
