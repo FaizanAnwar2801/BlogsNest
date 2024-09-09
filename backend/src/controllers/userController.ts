@@ -9,6 +9,8 @@ enum StatusCode {
     NOTPERMISSION = 403,
 }
 
+/********************************************Sign-up Route***************************************************/
+
 export async function signup(c: Context) {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -19,7 +21,8 @@ export async function signup(c: Context) {
         const user = prisma.user.create({
             data:{
                 email: body.email,
-                password: body.password
+                password: body.password,
+                username: body.name
             }
         });
         const jwt = await sign({id: user.id},c.env.JWT_SECRET);
@@ -30,6 +33,8 @@ export async function signup(c: Context) {
         return c.json({error:"eroor while signing up"});
     }
 }
+
+/********************************************Sign-in Route***************************************************/
 
 export async function signin(c: Context) {
     const prisma = new PrismaClient({
