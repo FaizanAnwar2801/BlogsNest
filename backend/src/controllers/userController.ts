@@ -3,58 +3,67 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
 import { sign } from "hono/jwt";
 
-enum StatusCode {
-    BADREQ = 400,
-    NOTFOUND = 404,
-    NOTPERMISSION = 403,
-}
 
 /********************************************Sign-up Route***************************************************/
 
 export async function signup(c: Context) {
+    const body = await c.req.json();
+
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-
-    const body = await c.req.json();
-    try{
+    try {
         const user = await prisma.user.create({
             data: {
                 email: body.email,
                 password: body.password,
                 name: body.name
             }
-        });
+        })
         const jwt = await sign({
             id: user.id
-        },c.env.JWT_SECRET)
-    }
-    catch(e){
-        console.log(e)
-        c.status(StatusCode.NOTPERMISSION)
-        return c.json({error:"error while signing up"});
+        }, c.env.JWT_SECRET);
+
+        return c.text(jwt)
+    } catch (e) {
+        console.log(e);
+        c.status(411);
+        return c.text('Invalid')
     }
 }
 
 /********************************************Sign-in Route***************************************************/
 
 export async function signin(c: Context) {
+    const body = await c.req.json();
+
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const body = await c.req.json();
-	const user = await prisma.user.findUnique({
-		where: {
-			email: body.email
-		}
-	});
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                email: body.email,
+                password: body.password,
+            }
+        })
+        if (!user) {
+            c.status(403);
+            return c.json({
+                message: "Incorrect credentials"
+            })
+        }
+        const jwt = await sign({
+            id: user.id
+        }, c.env.JWT_SECRET);
 
-	if (!user) {
-		c.status(StatusCode.NOTFOUND);
-		return c.json({ error: "user not found" });
-	}
-
-	const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-	return c.json({ jwt });
+        return c.text(jwt)
+    } catch (e) {
+        console.log(e);
+        c.status(411);
+        return c.text('Invalid')
+    }
 }
+
+// not working as expected.....signup issue.
