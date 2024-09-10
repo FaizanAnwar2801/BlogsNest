@@ -2,11 +2,6 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
 
-enum StatusCode {
-    BADREQ = 400,
-    NOTFOUND = 404,
-    NOTPERMISSIOON = 403,
-}
 
 export async function createBlog(c: Context) {
     const prisma = new PrismaClient({
