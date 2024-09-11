@@ -65,5 +65,3 @@ export async function signin(c: Context) {
         return c.text('Invalid')
     }
 }
-
-// not working as expected.....signup issue.
