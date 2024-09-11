@@ -3,12 +3,12 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
 import { verify } from "hono/jwt";
 
-export async function authCheck(c:Context , next:any){
-    const authHeader = c.req.header("authorization")||"";
-    const user = await verify(authHeader,c.env.JWT_SECRET);
-    if(user){
+export async function authCheck(c: Context, next: any) {
+    const authHeader = c.req.header("authorization") || "";
+    const user = await verify(authHeader, c.env.JWT_SECRET);
+    if (user) {
         c.set("userId", user.id)
-        next();
+        await next();
     }
 }
 
@@ -21,14 +21,14 @@ export async function createBlog(c: Context) {
     }).$extends(withAccelerate());
 
     const blog = await prisma.post.create({
-        data:{
-            title:body.title,
-            content:body.content,
-            authorId:authorId
+        data: {
+            title: body.title,
+            content: body.content,
+            authorId: authorId
         }
     })
     return c.json({
-        id:blog.id
+        id: blog.id
     })
 }
 
@@ -40,42 +40,42 @@ export async function updateBlog(c: Context) {
     }).$extends(withAccelerate());
 
     const blog = await prisma.post.update({
-        where:{
-            id:body.id
+        where: {
+            id: body.id
         },
-        data:{
-            title:body.title,
-            content:body.content,
+        data: {
+            title: body.title,
+            content: body.content,
         }
     })
 
     return c.json({
-        id:blog.id
+        id: blog.id
     })
 }
 
 export async function getBlog(c: Context) {
-    const body = await c.req.json();
+    const id = c.req.param("id");
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    try{
+    try {
         const blog = await prisma.post.findFirst({
-            where:{
-                id:body.id
+            where: {
+                id: id
             }
         })
         return c.json({
-        blog
+            blog
         })
-    }catch(e){
+    } catch (e) {
         c.status(400);
         return c.json({
-        message:"Error while fetching blogpost."
-    })
-}
+            message: "Error while fetching blogpost."
+        })
+    }
 }
 
 // pagenation to be added.
@@ -92,25 +92,25 @@ export async function getAllBlog(c: Context) {
     })
 }
 
-// pagenation to be added.
+// pagenation to be added. // route not working 
 
 export async function getUserBlog(c: Context) {
-    const body = await c.req.json();
+    const authorId = c.get("userId")
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    try{
+    try {
         const userBlog = await prisma.post.findMany({
-            where:{
-                id:body.id
+            where: {
+                authorId: authorId
             }
         })
         return c.json({
-            userBlog
+            userBlog,
         })
-    }catch(e){
+    } catch (e) {
         c.status(400);
         return c.json({
             message: "Error while fetching user-blogs."
@@ -121,15 +121,25 @@ export async function getUserBlog(c: Context) {
 // Route to be improved.
 
 export async function deleteBlog(c: Context) {
-    const body = await c.req.json();
+    const id = c.req.param("id");
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const deleteBlog = prisma.post.delete({
-        where:{
-            id:body.id
-        }
-    })
+    try {
+        const deleteBlog = prisma.post.delete({
+            where: {
+                id: id,
+            }
+        })
+        return c.json({
+            message: "blog deleted."
+        })
+    } catch (e) {
+        c.status(400);
+        return c.json({
+            message: "Error while deleting the blog."
+        })
+    }
 }
