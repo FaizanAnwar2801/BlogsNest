@@ -1,11 +1,13 @@
 import { Hono } from "hono";
+import {verify } from "hono/jwt";
 import { 
     createBlog,
     updateBlog,
     getBlog,
     getUserBlog,
     deleteBlog,
-    getAllBlog
+    getAllBlog,
+    authCheck
 } from "../controllers/blogsController";
 
 
@@ -18,6 +20,8 @@ export const blogRouter = new Hono<{
         userId: string;
     }
 }>();
+
+blogRouter.use("/*", authCheck);
 
 blogRouter.post('/create-blog', createBlog);
 blogRouter.put('/update-blog/:id', updateBlog);
