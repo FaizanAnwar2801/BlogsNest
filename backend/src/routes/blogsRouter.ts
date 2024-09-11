@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import {verify } from "hono/jwt";
-import { 
+import { verify } from "hono/jwt";
+import {
     createBlog,
     updateBlog,
     getBlog,
@@ -15,7 +15,7 @@ export const blogRouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
         JWT_SECRET: string;
-    }, 
+    },
     Variables: {
         userId: string;
     }
@@ -23,12 +23,12 @@ export const blogRouter = new Hono<{
 
 blogRouter.use("/*", authCheck);
 
-blogRouter.post('/create-blog', createBlog);
-blogRouter.put('/update-blog/:id', updateBlog);
-blogRouter.get('/blog/:id', getBlog);
-blogRouter.get('/user-blog', getUserBlog);
-blogRouter.delete('/post/:id', deleteBlog);
-blogRouter.get('/all-blog', getAllBlog);
+blogRouter.post('/create-blog', createBlog);  // working
+blogRouter.put('/update-blog', updateBlog);  // working
+blogRouter.get('/get-blog/:id', getBlog);   // working
+blogRouter.get('/user-blog', getUserBlog); //working
+blogRouter.delete('/delete-blog/:id', deleteBlog); // logic is fine , deleteion not working.
+blogRouter.get('/get-all-blog', getAllBlog); // working
 
 
 
