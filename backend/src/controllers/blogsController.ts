@@ -5,10 +5,17 @@ import { verify } from "hono/jwt";
 
 export async function authCheck(c: Context, next: any) {
     const authHeader = c.req.header("authorization") || "";
-    const user = await verify(authHeader, c.env.JWT_SECRET);
-    if (user) {
-        c.set("userId", user.id)
-        await next();
+    try{
+        const user = await verify(authHeader, c.env.JWT_SECRET);
+        if (user) {
+            c.set("userId", user.id)
+            await next();
+        }
+    }catch(e){
+        c.status(403);
+        return c.json({
+            message: "User not logged in."
+        })
     }
 }
 
