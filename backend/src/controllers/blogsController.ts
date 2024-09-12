@@ -125,7 +125,6 @@ export async function getUserBlog(c: Context) {
     }
 }
 
-// Route to be improved.
 
 export async function deleteBlog(c: Context) {
     const id = c.req.param("id");
@@ -135,7 +134,7 @@ export async function deleteBlog(c: Context) {
     }).$extends(withAccelerate());
 
     try {
-        const deleteBlog = prisma.post.delete({
+        const deleteBlog = await prisma.post.delete({
             where: {
                 id: id,
             }
