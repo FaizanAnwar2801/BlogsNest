@@ -27,7 +27,7 @@ blogRouter.post('/create-blog', createBlog);  // working
 blogRouter.put('/update-blog', updateBlog);  // working
 blogRouter.get('/get-blog/:id', getBlog);   // working
 blogRouter.get('/user-blog', getUserBlog); //working
-blogRouter.delete('/delete-blog/:id', deleteBlog); // logic is fine , deleteion not working
+blogRouter.delete('/delete-blog/:id', deleteBlog); // working
 blogRouter.get('/get-all-blog', getAllBlog); // working
 
 
