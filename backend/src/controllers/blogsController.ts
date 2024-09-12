@@ -128,6 +128,7 @@ export async function getUserBlog(c: Context) {
 
 export async function deleteBlog(c: Context) {
     const id = c.req.param("id");
+    const authorId = c.get("userId")
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -137,6 +138,7 @@ export async function deleteBlog(c: Context) {
         const deleteBlog = await prisma.post.delete({
             where: {
                 id: id,
+                authorId: authorId
             }
         })
         return c.json({
