@@ -1,3 +1,4 @@
+import { createBlogInput, updateBlogInput } from "@faizancodes2808/blogsnest-common";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
@@ -21,6 +22,14 @@ export async function authCheck(c: Context, next: any) {
 
 export async function createBlog(c: Context) {
     const body = await c.req.json();
+    
+    const { success } = createBlogInput.safeParse(body);
+    if (!success) {
+        c.status(411);
+        return c.json({
+            message: "Incorrect Inputs."
+        })
+    }
     const authorId = c.get("userId")
 
     const prisma = new PrismaClient({
@@ -41,6 +50,13 @@ export async function createBlog(c: Context) {
 
 export async function updateBlog(c: Context) {
     const body = await c.req.json();
+    const { success } = updateBlogInput.safeParse(body);
+    if (!success) {
+        c.status(411);
+        return c.json({
+            message: "Incorrect Inputs."
+        })
+    }
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
