@@ -49,10 +49,10 @@
   resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.19.tgz"
   integrity sha512-lAhycmKnVOuRYNtRtatQR1LPQf2oYCkRGkSFnseDAKPl8lu5SOsK/e1sXe5a0Pc5kHIHe6P2I/ilntNv2xf3cA==
 
-"@faizancodes2808/blogsnest-common@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@faizancodes2808/blogsnest-common/-/blogsnest-common-1.0.0.tgz"
-  integrity sha512-NraQf9xt5U+cCILqyHGmfq/CtMEMQ0RXcyyddtVOdUKBLhvxkmoRPrcWPHaaIZKDZmgytCZtHiCx6m62LBflfw==
+"@faizancodes2808/blogsnest-common@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@faizancodes2808/blogsnest-common/-/blogsnest-common-1.0.2.tgz"
+  integrity sha512-mD6HOvG+NOVe0b9Qt7qkrRD/QDou+GRrnXAkKP0wT3jgnzGjCjYRzMrc5B+0jf/O3mBousqC1hvX6rx1L4HG3g==
   dependencies:
     zod "^3.23.8"
 
@@ -417,9 +417,9 @@ path-parse@^1.0.7:
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-to-regexp@^6.2.0:
-  version "6.2.2"
-  resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-6.2.2.tgz"
-  integrity sha512-GQX3SSMokngb36+whdpRXE+3f9V8UzyAorlYvOGx87ufGHehNTn5lCxrKtLyZ4Yl/wEKnNnr98ZzOwwDZV5ogw==
+  version "6.3.0"
+  resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-6.3.0.tgz"
+  integrity sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==
 
 pathe@^1.1.2:
   version "1.1.2"
