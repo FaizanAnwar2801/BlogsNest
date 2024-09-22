@@ -108,7 +108,18 @@ export async function getAllBlog(c: Context) {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const allBlog = await prisma.post.findMany();
+    const allBlog = await prisma.post.findMany({
+        select:{
+            id:true,
+            title:true,
+            content: true,
+            author:{
+                select:{
+                    name:true
+                }
+            }
+        }
+    });
 
     return c.json({
         allBlog
