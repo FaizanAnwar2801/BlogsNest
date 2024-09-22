@@ -25,9 +25,10 @@ export async function signup(c: Context) {
     try {
         const user = await prisma.user.create({
             data: {
+                name: body.name,
                 email: body.email,
                 password: body.password,
-                name: body.name
+
             }
         })
         const jwt = await sign({
@@ -49,6 +50,7 @@ export async function signin(c: Context) {
 
     const { success } = signinInput.safeParse(body);
     if (!success) {
+        console.log("zod error")
         c.status(411);
         return c.json({
             message: "Incorrect inputs."
