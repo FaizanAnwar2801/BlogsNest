@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 interface BlogCardProps {
     key: string
     authorName: string;
@@ -42,9 +41,7 @@ export const BlogCard = ({
 }
 
 export function Circle() {
-    return <div className="h-1 w-1 rounded-full bg-slate-500">
-
-    </div>
+    return <div className="h-1 w-1 rounded-full bg-slate-500"></div>
 }
 
 export function Avatar({ name, size = "small" }: { name: string, size?: "small" | "big" }) {
@@ -54,3 +51,4 @@ export function Avatar({ name, size = "small" }: { name: string, size?: "small" 
     </span>
 </div>
 }
+
