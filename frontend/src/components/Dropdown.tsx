@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Avatar } from './BlogsCard';
+import { Link } from 'react-router-dom';
 
 const DropdownButton = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ const DropdownButton = () => {
                 aria-label="User menu"  // Adding accessible label for screen readers
                 title="Open user menu" // Optional: Tooltip for sighted users
                 className="focus:outline-none">
-                <Avatar name="Faizan" size="big" />
+                <Avatar name="User" size="big" />
             </button>
 
             {/* Dropdown Menu */}
@@ -23,28 +24,27 @@ const DropdownButton = () => {
                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
                     <ul className="py-1">
                         <li>
-                            <button
-                                onClick={() => alert("Navigating to My Blogs")}
-                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                                My Blogs
-                            </button>
+                            <Link to={`/user-blogs`}>
+                                <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    My Blogs
+                                </button>
+                            </Link>
                         </li>
                         <li>
-                            <button
-                                onClick={() => alert("Navigating to All Blogs")}
-                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                                All Blogs
-                            </button>
+                            <Link to={`/blogs`}>
+                                <button className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    All Blogs
+                                </button>
+                            </Link>
                         </li>
                         <li>
-                            <button
-                                onClick={() => alert("Logging out...")}
-                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                                Logout
-                            </button>
+                            <Link to= {'/'}>
+                                <button
+                                    onClick={handleLogout}
+                                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    Logout
+                                </button>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -53,4 +53,8 @@ const DropdownButton = () => {
     );
 };
 
-    export default DropdownButton;
+const handleLogout = () => {
+    localStorage.removeItem('token')
+}
+
+export default DropdownButton;
