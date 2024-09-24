@@ -12,7 +12,7 @@ export const Blog = () => {
         id: id || ""
     })
 
-    if (loading) {
+    if (loading || !blog) {
         return <div>
             <Appbar />
             <div className="flex justify-center">
@@ -25,7 +25,7 @@ export const Blog = () => {
 
     return (
         <div>
-            <FullBlog blog = {blog}/>
+            <FullBlog blog={blog} />
         </div>
     )
 }
