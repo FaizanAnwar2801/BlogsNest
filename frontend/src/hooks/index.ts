@@ -8,9 +8,16 @@ export interface Blog {
     "content": string,
     "author": {
         "name": string,
-        "id":string
+        "id": string
     }
 }
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+/********************************************* Hook for blog by id ****************************************************/
 
 
 export const useBlog = ({ id }: { id: string }) => {
@@ -40,6 +47,7 @@ export const useBlog = ({ id }: { id: string }) => {
     }
 }
 
+/***************************************** Hook for all blogs and loading **********************************************/
 
 export const useBlogs = () => {
     const [loading, setLoading] = useState(true);
@@ -67,6 +75,8 @@ export const useBlogs = () => {
     }
 }
 
+/***************************************** Hook for user blogs and loading ************************************************/
+
 export const useMyBlogs = () => {
     const [loading, setLoading] = useState(true);
     const [userBlogs, setuserBlogs] = useState<Blog[]>([])
@@ -93,3 +103,30 @@ export const useMyBlogs = () => {
     }
 }
 
+/***************************************** Hook for user data and loading ************************************************/
+
+export const useMyData = () => {
+    const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState<User[]>([])
+
+    useEffect(() => {
+        try {
+            axios.get(`${BACKEND_URL}/api/v1/user/get-user`, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            }).then(response => {
+                setUserData(response.data.userData)
+                setLoading(false)
+            })
+        } catch (e) {
+            console.error('Error fetching data:', e);
+        }
+
+    }, [])
+
+    return {
+        loading,
+        userData
+    }
+}
