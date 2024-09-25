@@ -4,7 +4,7 @@
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
-    "@faizancodes2808/blogsnest-common": "^1.0.2",
+    "@faizancodes2808/blogsnest-common": "^1.0.3",
     "@prisma/client": "^5.19.1",
     "@prisma/extension-accelerate": "^0.6.3",
     "hono": "^4.0.8",
