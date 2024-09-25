@@ -1,6 +1,6 @@
 {
   "name": "@faizancodes2808/blogsnest-common",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
