@@ -1,6 +1,7 @@
 import { Blog } from "../hooks"
 import { Appbar } from "./Appbar"
 import { Avatar } from "./BlogsCard"
+import { Link } from "react-router-dom"
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
     return <div>
@@ -32,6 +33,14 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                             </div>
                             <div className="flex justify-between pt-2 text-m text-slate-500">
                                 Random catch phrase about the author's ability to grab the user's attention
+                            </div>
+                            <div className="flex justify-items-end pt-10">
+                                <Link to ={`/edit-blog/${blog.id}`}>
+                                <button type="button" 
+                                    className="mr-4 text-white bg-green-700 hover:bg-green-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
+                                    Edit
+                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
