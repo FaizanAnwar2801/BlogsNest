@@ -2,7 +2,9 @@ import { signupInput, signinInput } from "@faizancodes2808/blogsnest-common";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
-import { sign } from "hono/jwt";
+import { jwt, sign } from "hono/jwt";
+import { authCheck } from "./blogsController";
+
 
 
 
@@ -83,5 +85,36 @@ export async function signin(c: Context) {
         console.log(e);
         c.status(411);
         return c.text('Invalid')
+    }
+}
+
+/******************************************************************************************************************/
+
+export async function getUserData(c: Context) {
+    const userId = c.get("userId")
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try{
+        const userData = await prisma.user.findUnique({
+            where:{
+                id : userId
+            },select:{
+                id:true,
+                name:true,
+                email:true
+            }
+        })
+        
+        return c.json({
+            userData
+        })
+    }catch(e){
+        c.status(400);
+        return c.json({
+            message: "Error while fetching user data."
+        })
     }
 }
