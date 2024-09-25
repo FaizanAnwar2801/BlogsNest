@@ -50,6 +50,7 @@ export async function createBlog(c: Context) {
 
 export async function updateBlog(c: Context) {
     const body = await c.req.json();
+    const Uid = c.req.param("id");
     const { success } = updateBlogInput.safeParse(body);
     if (!success) {
         c.status(411);
@@ -64,7 +65,7 @@ export async function updateBlog(c: Context) {
 
     const blog = await prisma.post.update({
         where: {
-            id: body.id
+            id:Uid
         },
         data: {
             title: body.title,
@@ -95,6 +96,7 @@ export async function getBlog(c: Context) {
                 content: true,
                 author:{select:{
                     name:true,
+                    id:true,
                 }
             }
         }
@@ -124,7 +126,8 @@ export async function getAllBlog(c: Context) {
             content: true,
             author:{
                 select:{
-                    name:true
+                    name:true,
+                    id:true
                 }
             }
         }
@@ -155,6 +158,7 @@ export async function getUserBlog(c: Context) {
                 content: true,
                 author:{select:{
                     name:true,
+                    id:true,
                 }
             }
         }
