@@ -24,7 +24,7 @@ export const blogRouter = new Hono<{
 blogRouter.use("/*", authCheck);
 
 blogRouter.post('/create-blog', createBlog);  // working
-blogRouter.put('/update-blog', updateBlog);  // working
+blogRouter.put('/update-blog/:id', updateBlog);  // working
 blogRouter.get('/get-blog/:id', getBlog);   // working
 blogRouter.get('/user-blog', getUserBlog); //working
 blogRouter.delete('/delete-blog/:id', deleteBlog); // working
