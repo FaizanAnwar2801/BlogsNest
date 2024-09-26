@@ -1,5 +1,6 @@
 import { Hono } from "hono";
-import { signup , signin } from "../controllers/userController";
+import { signup , signin, getUserData } from "../controllers/userController";
+import { authCheck } from "../controllers/blogsController";
 
 export const userRouter = new Hono<{
     Bindings: {
@@ -10,4 +11,5 @@ export const userRouter = new Hono<{
 
 userRouter.post('/signup', signup);
 userRouter.post('/signin', signin);
+userRouter.get('/get-user', authCheck , getUserData)
 
