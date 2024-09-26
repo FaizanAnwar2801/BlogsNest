@@ -32,9 +32,24 @@ export const EditBlog = () => {
 
     }, [id])
 
+    async function onDelete() {
+        const useConfirmed = window.confirm("Delete Post.")
+        if (useConfirmed) {
+            await axios.delete(`${BACKEND_URL}/api/v1/blog/delete-blog/${id}`, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            });
+            navigate(`/user-blogs`)
+        } else {
+            console.log("user denied.")
+            navigate(`/edit-blog/${id}`);
+        }
+    }
+
 
     return <div>
-        <Appbar />
+        <Appbar title={"Edit Blog"} />
         <div className="flex justify-center w-full pt-8">
             <div className="max-w-screen-lg w-full">
                 <input 
@@ -46,6 +61,7 @@ export const EditBlog = () => {
                 <TextEditor value = {description} onChange={(e) => {
                     setDescription(e.target.value)
                 }} />
+                <div className="flex space-x-5">
                 <button onClick={async () => {
                     const response = await axios.put(`${BACKEND_URL}/api/v1/blog/update-blog/${id}`, {
                         title,
@@ -56,9 +72,16 @@ export const EditBlog = () => {
                         }
                     });
                     navigate(`/get-blog/${response.data.id}`)
-                }} type="submit" className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                }} type="submit" 
+                className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                     Update post
                 </button>
+                <button onClick={onDelete} 
+                type= "submit" 
+                className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-600 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800 hover:bg-red-700 ">
+                    Delete post
+                </button>
+                </div>
             </div>
         </div>
     </div>
