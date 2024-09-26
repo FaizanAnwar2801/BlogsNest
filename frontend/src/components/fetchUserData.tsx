@@ -1,5 +1,5 @@
 import axios from "axios";
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export default async function fetchUserData() {
     const response = await axios.get(`${BACKEND_URL}/api/v1/user/get-user`, {

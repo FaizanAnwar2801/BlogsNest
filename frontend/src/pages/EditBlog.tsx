@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export const EditBlog = () => {
     const [title, setTitle] = useState("");

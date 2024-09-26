@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SignupInput } from "@faizancodes2808/blogsnest-common";
 import axios from "axios";
 
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate = useNavigate();

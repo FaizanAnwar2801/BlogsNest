@@ -4,7 +4,7 @@ import { Avatar } from "./BlogsCard"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
     const navigate = useNavigate();
