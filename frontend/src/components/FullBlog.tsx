@@ -2,8 +2,9 @@ import { Blog } from "../hooks"
 import { Appbar } from "./Appbar"
 import { Avatar } from "./BlogsCard"
 import { Link, useNavigate } from "react-router-dom"
-import { BACKEND_URL } from "../../config.env"
 import axios from "axios"
+
+const BACKEND_URL = process.env.BACKEND_URL
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
     const navigate = useNavigate();

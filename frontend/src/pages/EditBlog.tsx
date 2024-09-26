@@ -1,8 +1,9 @@
 import { Appbar } from "../components/Appbar"
-import { BACKEND_URL } from "../../config.env";
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
+
+const BACKEND_URL = process.env.BACKEND_URL
 
 export const EditBlog = () => {
     const [title, setTitle] = useState("");
