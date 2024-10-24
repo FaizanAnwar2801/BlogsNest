@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Context } from "hono";
 import { jwt, sign } from "hono/jwt";
-import { authCheck } from "./blogsController";
 
 
 
