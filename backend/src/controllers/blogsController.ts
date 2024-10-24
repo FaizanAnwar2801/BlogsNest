@@ -40,7 +40,8 @@ export async function createBlog(c: Context) {
         data: {
             title: body.title,
             content: body.content,
-            authorId: authorId
+            date: new Date(),
+            authorId: Number(authorId),
         }
     })
     return c.json({
@@ -65,7 +66,7 @@ export async function updateBlog(c: Context) {
 
     const blog = await prisma.post.update({
         where: {
-            id:Uid
+            id:Number(Uid)
         },
         data: {
             title: body.title,
@@ -88,15 +89,17 @@ export async function getBlog(c: Context) {
     try {
         const blog = await prisma.post.findFirst({
             where: {
-                id: id
+                id: Number(id)
             },
             select:{
                 id:true,
                 title:true,
                 content: true,
+                date: true,
                 author:{select:{
                     name:true,
                     id:true,
+                    description:true,
                 }
             }
         }
@@ -124,10 +127,12 @@ export async function getAllBlog(c: Context) {
             id:true,
             title:true,
             content: true,
+            date:true,
             author:{
                 select:{
                     name:true,
-                    id:true
+                    id:true,
+                    description:true,
                 }
             }
         }
@@ -156,9 +161,11 @@ export async function getUserBlog(c: Context) {
                 id:true,
                 title:true,
                 content: true,
+                date:true,
                 author:{select:{
                     name:true,
                     id:true,
+                    description:true,
                 }
             }
         }
@@ -186,8 +193,8 @@ export async function deleteBlog(c: Context) {
     try {
         const deleteBlog = await prisma.post.delete({
             where: {
-                id: id,
-                authorId: authorId
+                id: Number(id),
+                authorId: Number(authorId)
             }
         })
         return c.json({
