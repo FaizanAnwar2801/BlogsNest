@@ -41,19 +41,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     </div>
                 </div>
                 <div className="pt-8">
-                    {type === "signup" ? <LabelledInput label="Name" placeholder="Faizan Anwar" onChange={(e) => {
+                    {type === "signup" ? <LabelledInput label="Name" placeholder="John Doe" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             name: e.target.value
                         })
                     }} /> : null}
-                    <LabelledInput label="Email" placeholder="faizan@gmail.com" onChange={(e) => {
+                    <LabelledInput label="Email" placeholder="john@gmail.com" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             email: e.target.value
                         })
                     }} />
-                    <LabelledInput label="Password" type={"password"} placeholder="123456" onChange={(e) => {
+                    <LabelledInput label="Password" type={"password"} placeholder="******" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             password: e.target.value
