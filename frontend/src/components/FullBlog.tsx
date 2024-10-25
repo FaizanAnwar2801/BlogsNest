@@ -55,7 +55,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                         {blog.title}
                     </div>
                     <div className="text-slate-500 pt-2">
-                        Post on 2nd December 2023
+                        {new Date(blog.date).toDateString()}
                     </div>
                     <div className="pt-4">
                         {blog.content}
@@ -74,7 +74,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                                 {blog.author.name || "Anonymous"}
                             </div>
                             <div className="flex justify-between pt-2 text-m text-slate-500">
-                                Random catch phrase about the author's ability to grab the user's attention
+                                {blog.author.description || "Random catch phrase about the author's ability to grab the user's attention"}
                             </div>
                             {authorVal === userVal && (
                                 <div className="flex justify-items-center pt-10">
